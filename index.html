@@ -8,6 +8,29 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+  <!-- Превью при шаринге ссылки -->
+  <meta name="description"
+        content="Преміальна чорна та золота ікра з Одеси. Замовлення через Telegram @ikra_ook.">
+  <meta property="og:title" content="Ікра ООК — преміальна ікра">
+  <meta property="og:description"
+        content="Золота ікра стерляді-альбіноса, чорна ікра білуги та стерляді. Замовляйте в Telegram @ikra_ook.">
+  <meta property="og:image"
+        content="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png">
+  <meta property="og:type" content="website">
+  <!-- Поставь сюда реальний URL сайту -->
+  <meta property="og:url" content="https://your-domain.example/">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ікра ООК — преміальна ікра">
+  <meta name="twitter:description"
+        content="Преміальна чорна та золота ікра. Замовлення через Telegram @ikra_ook.">
+  <meta name="twitter:image"
+        content="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png">
+
+  <link rel="icon"
+        href="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png"
+        type="image/png">
+
   <style>
     :root {
       --bg-main: #00485a;      /* темно-бірюзовий фон */
@@ -140,15 +163,6 @@
 
     /* СЕКЦІЯ ТОВАРІВ */
 
-    .section-title {
-      margin: 8px 4px 4px;
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-    }
-
     .products {
       display: flex;
       flex-direction: column;
@@ -186,7 +200,7 @@
       margin-bottom: 10px;
     }
 
-    .product-card img {
+    .product-image {
       max-width: 230px;
       width: 80%;
       height: auto;
@@ -195,6 +209,12 @@
       filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.55));
       user-select: none;
       pointer-events: none;
+    }
+
+    /* Маска, щоб прибрати білий фон на останньому товарі */
+    .product-image--mask {
+      -webkit-mask-image: radial-gradient(circle at center, #000 72%, transparent 73%);
+      mask-image: radial-gradient(circle at center, #000 72%, transparent 73%);
     }
 
     .product-name {
@@ -225,29 +245,6 @@
     .btn-order:hover,
     .btn-order:active {
       background: var(--accent-gold-dark);
-    }
-
-    /* ПІДВАЛ */
-
-    footer {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    footer .phone-footer {
-      font-weight: 600;
-      color: var(--accent-gold);
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    footer a {
-      color: inherit;
-      text-decoration: none;
     }
 
     /* Маленькі екрани */
@@ -296,15 +293,14 @@
     </header>
 
     <!-- Товари -->
-    <h2 class="section-title">Ікра преміум</h2>
-
     <section class="products">
 
       <!-- Товар 1 -->
       <article class="product-card">
         <div class="product-inner">
           <div class="product-image-wrap">
-            <img src="https://odessasturgeon.com/wp-content/uploads/2019/11/albinos.png"
+            <img class="product-image"
+                 src="https://odessasturgeon.com/wp-content/uploads/2019/11/albinos.png"
                  alt="Золота ікра Стерляді-альбіноса">
           </div>
           <div class="product-name">Золота ікра Стерляді-альбіноса</div>
@@ -319,7 +315,8 @@
       <article class="product-card">
         <div class="product-inner">
           <div class="product-image-wrap">
-            <img src="https://odessasturgeon.com/wp-content/uploads/2019/11/2-layers-min-3-1.png"
+            <img class="product-image"
+                 src="https://odessasturgeon.com/wp-content/uploads/2019/11/2-layers-min-3-1.png"
                  alt="Чорна ікра Білуги">
           </div>
           <div class="product-name">Чорна ікра Білуги</div>
@@ -334,11 +331,12 @@
       <article class="product-card">
         <div class="product-inner">
           <div class="product-image-wrap">
-            <img src="https://odessasturgeon.com/wp-content/uploads/2019/11/sterlyad.jpg"
+            <img class="product-image product-image--mask"
+                 src="https://odessasturgeon.com/wp-content/uploads/2019/11/sterlyad.jpg"
                  alt="Чорна ікра Стерляді">
           </div>
           <div class="product-name">Чорна ікра Стерляді</div>
-          <div class="product-note">Вишуканий баланс ніжності та солоності для поціновувачів.</div>
+          <div class="product-note">Вишуканий баланс ніжності та солоності.</div>
           <a class="btn btn-order" href="https://t.me/ikra_ook" target="_blank" rel="noopener noreferrer">
             Замовити
           </a>
@@ -347,11 +345,6 @@
 
     </section>
 
-    <!-- Підвал -->
-    <footer>
-      <a class="phone-footer" href="tel:+380935123260">093&nbsp;512&nbsp;32&nbsp;60</a>
-      <span>ООК 2025</span>
-    </footer>
   </div>
 
   <!-- Скрипт для додаткового захисту від double-tap zoom на iOS -->
