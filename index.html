@@ -60,8 +60,8 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, sans-serif;
+      font-family: Arial, "Arial", sans-serif;
+      font-weight: 700; /* везде жирный Arial */
       background: radial-gradient(circle at top, #006a7f 0, var(--bg-main) 45%, #002d3a 100%);
       color: var(--text-main);
       overflow-x: hidden;
@@ -133,7 +133,7 @@
       cursor: pointer;
       text-decoration: none;
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700; /* жирный текст на кнопках */
       letter-spacing: 0.02em;
       white-space: nowrap;
       user-select: none;
@@ -143,12 +143,13 @@
 
     .btn-phone {
       background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
-      color: #1b2931;
+      color: #ffffff; /* телефон белым */
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.5);
     }
 
     .btn-phone span {
       font-size: 16px;
+      color: #ffffff;
     }
 
     .btn-telegram {
@@ -211,7 +212,13 @@
     .product-image-wrap {
       display: flex;
       justify-content: center;
+      align-items: center;   /* по центру по вертикали */
       margin-bottom: 10px;
+    }
+
+    /* для нижней, чтобы тень не заезжала на текст */
+    .product-image-wrap--bottom {
+      margin-bottom: 28px;
     }
 
     .product-image {
@@ -219,31 +226,33 @@
       width: 80%;
       height: auto;
       display: block;
+      margin: 0 auto;        /* по центру по горизонтали */
       border-radius: 50%;
       filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.55));
       user-select: none;
       pointer-events: none;
+      transform: translateX(8px); /* немного вправо к центру визуально */
     }
 
-    /* Нижняя банка — увеличиваем, чтобы размер совпадал с верхней,
-       но без сильного обрезания картинки */
+    /* Нижняя банка — чуть больше по размеру, чем верхняя */
     .product-image--blend {
       border-radius: 50%;
       mix-blend-mode: normal;
       opacity: 1;
-      transform: scale(1.15);
+      transform: scale(1.25) translateX(8px);
       transform-origin: center;
       filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.7));
     }
 
     .product-name {
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 700;
       margin-bottom: 10px;
     }
 
     .product-note {
       font-size: 13px;
+      font-weight: 700;
       color: var(--text-muted);
       margin-bottom: 14px;
     }
@@ -252,7 +261,7 @@
       width: 100%;
       justify-content: center;
       background: var(--accent-gold);
-      color: #1b2931;
+      color: #ffffff; /* Замовити белым */
       border-radius: 999px;
       font-size: 15px;
       padding: 10px 14px;
@@ -349,7 +358,7 @@
       <!-- Товар 3 -->
       <article class="product-card">
         <div class="product-inner">
-          <div class="product-image-wrap">
+          <div class="product-image-wrap product-image-wrap--bottom">
             <img class="product-image product-image--blend"
                  src="https://i.ibb.co/7d7G7msj/490ab98c-3543-4d55-a5e8-d984d5935b0f.png"
                  alt="Чорна ікра Стерляді">
