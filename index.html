@@ -43,8 +43,9 @@
     :root {
       --bg-main: #00485a;      /* темно-бірюзовий фон */
       --bg-card: #00576d;
-      --accent-gold: #d9b34a;
-      --accent-gold-dark: #c49c36;
+      --accent-gold-light: #e2c15a;
+      --accent-gold: #c89b2c;
+      --accent-gold-dark: #a57711;
       --text-main: #f5fafc;
       --text-muted: #c9dde5;
       --shadow-soft: 0 18px 35px rgba(0, 0, 0, 0.55);
@@ -133,16 +134,16 @@
       cursor: pointer;
       text-decoration: none;
       font-size: 15px;
-      font-weight: 700; /* жирный текст на кнопках */
+      font-weight: 700;
       letter-spacing: 0.02em;
       white-space: nowrap;
       user-select: none;
       transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
-        background 0.12s ease-out, color 0.12s ease-out;
+        background 0.12s ease-out, color 0.12s ease-out, opacity 0.08s ease-out;
     }
 
     .btn-phone {
-      background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+      background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark));
       color: #ffffff; /* телефон белым */
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.5);
     }
@@ -160,15 +161,15 @@
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
     }
 
-    .btn:hover,
-    .btn:active {
+    .btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 14px 26px rgba(0, 0, 0, 0.6);
     }
 
     .btn:active {
-      transform: translateY(0);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+      transform: scale(0.97) translateY(1px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+      opacity: 0.95;
     }
 
     .icon-telegram {
@@ -267,13 +268,14 @@
     }
 
     .btn-order {
-      width: 100%;
+      width: 88%;                 /* чуть короче по длине */
+      margin: 0 auto;
       justify-content: center;
-      background: var(--accent-gold);
-      color: #ffffff; /* Замовити белым */
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+      color: #ffffff;             /* Замовити белым */
       border-radius: 999px;
-      font-size: 13px; /* немного меньше текст на кнопках */
-      padding: 9px 12px;
+      font-size: 13px;            /* немного меньше текст на кнопках */
+      padding: 8px 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.55);
@@ -282,7 +284,7 @@
 
     .btn-order:hover,
     .btn-order:active {
-      background: var(--accent-gold-dark);
+      background: linear-gradient(135deg, var(--accent-gold-dark), #7c560b);
     }
 
     /* Підвал */
@@ -298,6 +300,16 @@
       margin-top: 4px;
       color: #ffffff;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); /* тень за номером внизу */
+    }
+
+    .footer-phone a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    a[href^="tel"] {
+      color: #ffffff;
+      text-decoration: none;
     }
 
     /* Маленькі екрани */
