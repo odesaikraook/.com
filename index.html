@@ -8,9 +8,12 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+  <!-- Цвет интерфейса браузера / системы (бірюзовий фон) -->
+  <meta name="theme-color" content="#00485a">
+
   <!-- Превью при шаринге ссылки -->
   <meta name="description"
-        content="Преміальна чорна та золота ікра з Одеси. Замовлення через Telegram @ikra_ook.">
+        content="Преміальна чорна та золота ікра. Замовлення через Telegram @ikra_ook.">
   <meta property="og:title" content="Ікра ООК — преміальна ікра">
   <meta property="og:description"
         content="Золота ікра стерляді-альбіноса, чорна ікра білуги та стерляді. Замовляйте в Telegram @ikra_ook.">
@@ -27,6 +30,7 @@
   <meta name="twitter:image"
         content="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png">
 
+  <!-- Іконка сайту -->
   <link rel="icon"
         href="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png"
         type="image/png">
@@ -70,7 +74,7 @@
       width: 100%;
       max-width: 480px; /* один стовпчик на всіх пристроях */
       min-height: 100vh;
-      padding: 16px 16px 32px;
+      padding: 16px 16px 64px; /* внизу доданий простір */
       display: flex;
       flex-direction: column;
       gap: 24px;
@@ -211,10 +215,11 @@
       pointer-events: none;
     }
 
-    /* Маска, щоб прибрати білий фон на останньому товарі */
-    .product-image--mask {
-      -webkit-mask-image: radial-gradient(circle at center, #000 72%, transparent 73%);
-      mask-image: radial-gradient(circle at center, #000 72%, transparent 73%);
+    /* Для третього товару — щоб білий фон не виділявся */
+    .product-image--blend {
+      mix-blend-mode: multiply;
+      filter: brightness(1.05) saturate(1.05)
+              drop-shadow(0 12px 20px rgba(0, 0, 0, 0.55));
     }
 
     .product-name {
@@ -320,7 +325,7 @@
                  alt="Чорна ікра Білуги">
           </div>
           <div class="product-name">Чорна ікра Білуги</div>
-          <div class="product-note">Класична чорна ікра з насиченим смаком та великим зерном.</div>
+          <div class="product-note">Класична чорна ікра з насиченим смаком.</div>
           <a class="btn btn-order" href="https://t.me/ikra_ook" target="_blank" rel="noopener noreferrer">
             Замовити
           </a>
@@ -331,7 +336,7 @@
       <article class="product-card">
         <div class="product-inner">
           <div class="product-image-wrap">
-            <img class="product-image product-image--mask"
+            <img class="product-image product-image--blend"
                  src="https://odessasturgeon.com/wp-content/uploads/2019/11/sterlyad.jpg"
                  alt="Чорна ікра Стерляді">
           </div>
