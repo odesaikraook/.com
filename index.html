@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ікра ООК</title>
+
+  <!-- Блокируем зум и двойное увеличение -->
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <style>
+    :root {
+      --bg-main: #00485a;      /* темно-бірюзовий фон */
+      --bg-card: #00576d;
+      --accent-gold: #d9b34a;
+      --accent-gold-dark: #c49c36;
+      --text-main: #f5fafc;
+      --text-muted: #c9dde5;
+      --shadow-soft: 0 18px 35px rgba(0, 0, 0, 0.55);
+      --radius-xl: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: radial-gradient(circle at top, #006a7f 0, var(--bg-main) 45%, #002d3a 100%);
+      color: var(--text-main);
+      overflow-x: hidden;
+      touch-action: pan-y;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 480px; /* один стовпчик на всіх пристроях */
+      min-height: 100vh;
+      padding: 16px 16px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ШАПКА */
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 16px;
+      background: rgba(0, 0, 0, 0.28);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      flex-shrink: 0;
+    }
+
+    .logo img {
+      display: block;
+      width: 96px;
+      height: auto;
+    }
+
+    .top-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      user-select: none;
+      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
+        background 0.12s ease-out, color 0.12s ease-out;
+    }
+
+    .btn-phone {
+      background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+      color: #1b2931;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-phone span {
+      font-size: 16px;
+    }
+
+    .btn-telegram {
+      background: transparent;
+      border: 1px solid var(--accent-gold);
+      color: var(--text-main);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+    }
+
+    .btn:hover,
+    .btn:active {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.6);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+    }
+
+    .icon-telegram {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* СЕКЦІЯ ТОВАРІВ */
+
+    .section-title {
+      margin: 8px 4px 4px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .products {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 4px;
+    }
+
+    .product-card {
+      background: linear-gradient(145deg, var(--bg-card), #003f50);
+      border-radius: var(--radius-xl);
+      padding: 18px 16px 16px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::before {
+      content: "";
+      position: absolute;
+      inset: -25%;
+      opacity: 0.16;
+      background: radial-gradient(circle at top, #00c2ff, transparent 60%);
+      pointer-events: none;
+    }
+
+    .product-inner {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .product-image-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .product-card img {
+      max-width: 230px;
+      width: 80%;
+      height: auto;
+      display: block;
+      border-radius: 50%;
+      filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.55));
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .product-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .product-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .btn-order {
+      width: 100%;
+      justify-content: center;
+      background: var(--accent-gold);
+      color: #1b2931;
+      border-radius: 999px;
+      font-size: 15px;
+      padding: 10px 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.55);
+    }
+
+    .btn-order:hover,
+    .btn-order:active {
+      background: var(--accent-gold-dark);
+    }
+
+    /* ПІДВАЛ */
+
+    footer {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer .phone-footer {
+      font-weight: 600;
+      color: var(--accent-gold);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Маленькі екрани */
+
+    @media (max-width: 360px) {
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .top-actions {
+        width: 100%;
+      }
+
+      .btn-phone span {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- Шапка з логотипом і кнопками -->
+    <header class="top-bar">
+      <div class="logo">
+        <img src="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png"
+             alt="Логотип ООК">
+      </div>
+
+      <div class="top-actions">
+        <a class="btn btn-phone" href="tel:+380935123260">
+          <span>093&nbsp;512&nbsp;32&nbsp;60</span>
+        </a>
+
+        <a class="btn btn-telegram" href="https://t.me/ikra_ook" target="_blank" rel="noopener noreferrer">
+          <!-- Іконка Telegram (SVG) -->
+          <svg class="icon-telegram" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor"
+                  d="M9.55 16.85L9.7 13.57L16.85 7.1C17.16 6.83 16.79 6.68 16.38 6.93L7.7 12.42L4.53 11.44C3.84 11.23 3.83 10.75 4.69 10.4L18.92 4.91C19.54 4.63 20.12 5.06 19.88 6.02L17.46 17.45C17.3 18.2 16.86 18.38 16.23 18.05L12.71 15.45L11.02 17.08C10.83 17.27 10.66 17.44 10.28 17.44L9.55 16.85Z" />
+          </svg>
+          <span>Telegram</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Товари -->
+    <h2 class="section-title">Ікра преміум</h2>
+
+    <section class="products">
+
+      <!-- Товар 1 -->
+      <article class="product-card">
+        <div class="product-inner">
+          <div class="product-image-wrap">
+            <img src="https://odessasturgeon.com/wp-content/uploads/2019/11/albinos.png"
+                 alt="Золота ікра Стерляді-альбіноса">
+          </div>
+          <div class="product-name">Золота ікра Стерляді-альбіноса</div>
+          <div class="product-note">Рідкісний делікатес з м’яким маслянистим смаком.</div>
+          <a class="btn btn-order" href="https://t.me/ikra_ook" target="_blank" rel="noopener noreferrer">
+            Замовити
+          </a>
+        </div>
+      </article>
+
+      <!-- Товар 2 -->
+      <article class="product-card">
+        <div class="product-inner">
+          <div class="product-image-wrap">
+            <img src="https://odessasturgeon.com/wp-content/uploads/2019/11/2-layers-min-3-1.png"
+                 alt="Чорна ікра Білуги">
+          </div>
+          <div class="product-name">Чорна ікра Білуги</div>
+          <div class="product-note">Класична чорна ікра з насиченим смаком та великим зерном.</div>
+          <a class="btn btn-order" href="https://t.me/ikra_ook" target="_blank" rel="noopener noreferrer">
+            Замовити
+          </a>
+        </div>
+      </article>
+
+      <!-- Товар 3 -->
+      <article class="product-card">
+        <div class="product-inner">
+          <div class="product-image-wrap">
+            <img src="https://odessasturgeon.com/wp-content/uploads/2019/11/sterlyad.jpg"
+                 alt="Чорна ікра Стерляді">
+          </div>
+          <div class="product-name">Чорна ікра Стерляді</div>
+          <div class="product-note">Вишуканий баланс ніжності та солоності для поціновувачів.</div>
+          <a class="btn btn-order" href="https://t.me/ikra_ook" target="_blank" rel="noopener noreferrer">
+            Замовити
+          </a>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- Підвал -->
+    <footer>
+      <a class="phone-footer" href="tel:+380935123260">093&nbsp;512&nbsp;32&nbsp;60</a>
+      <span>ООК 2025</span>
+    </footer>
+  </div>
+
+  <!-- Скрипт для додаткового захисту від double-tap zoom на iOS -->
+  <script>
+    (function () {
+      var lastTouchEnd = 0;
+      document.addEventListener('touchend', function (event) {
+        var now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, { passive: false });
+    })();
+  </script>
+</body>
+</html>
