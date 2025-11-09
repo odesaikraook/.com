@@ -225,11 +225,12 @@
       pointer-events: none;
     }
 
-    /* Для третього товару — максимально прибираємо білий фон */
+    /* Для третього товару — м’яка тінь без сильного обрізання */
     .product-image--blend {
-      mix-blend-mode: multiply;
-      opacity: 0.98;
-      filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.55));
+      border-radius: 50%;
+      mix-blend-mode: normal;
+      opacity: 1;
+      filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.7));
     }
 
     .product-name {
@@ -347,7 +348,7 @@
         <div class="product-inner">
           <div class="product-image-wrap">
             <img class="product-image product-image--blend"
-                 src="https://i.ibb.co/gZ0XxbdD/sterlyad-1.png"
+                 src="https://i.ibb.co/7d7G7msj/490ab98c-3543-4d55-a5e8-d984d5935b0f.png"
                  alt="Чорна ікра Стерляді">
           </div>
           <div class="product-name">Чорна ікра Стерляді</div>
