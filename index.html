@@ -22,7 +22,6 @@
   <meta property="og:image"
         content="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png">
   <meta property="og:type" content="website">
-  <!-- Поставь сюда реальний URL сайту -->
   <meta property="og:url" content="https://your-domain.example/">
 
   <meta name="twitter:card" content="summary">
@@ -39,7 +38,7 @@
   <link rel="apple-touch-icon"
         href="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png">
 
-  <!-- Прелоад логотипа та зображень товару для швидшого завантаження -->
+  <!-- Прелоад логотипа та зображень товару -->
   <link rel="preload"
         as="image"
         href="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png">
@@ -58,7 +57,7 @@
 
   <style>
     :root {
-      --bg-main: #00485a;      /* темно-бірюзовий фон */
+      --bg-main: #00485a;
       --bg-card: #00576d;
       --accent-gold-light: #e2c15a;
       --accent-gold: #c89b2c;
@@ -79,7 +78,7 @@
       padding: 0;
       height: 100%;
       font-family: Arial, "Arial", sans-serif;
-      font-weight: 700; /* везде жирный Arial */
+      font-weight: 700;
       background: radial-gradient(circle at top, #006a7f 0, var(--bg-main) 45%, #002d3a 100%);
       color: var(--text-main);
       overflow-x: hidden;
@@ -94,21 +93,52 @@
 
     .page {
       width: 100%;
-      max-width: 480px; /* один стовпчик на всіх пристроях */
+      max-width: 480px;
       min-height: 100vh;
-      padding: 16px 16px 96px; /* знизу збільшили відступ */
+      padding: 16px 16px 96px;
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
 
-    /* Підлаштовуємо відступи під вирізи екрана (iPhone) */
     .page {
       padding-top: calc(16px + env(safe-area-inset-top));
       padding-bottom: calc(96px + env(safe-area-inset-bottom));
     }
 
-    /* ШАПКА */
+    /* Стартове вікно з логотипом */
+    .logo-splash {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #006a7f 0, #003442 55%, #001f29 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease-out;
+    }
+
+    .logo-splash--visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .logo-splash img {
+      width: 130px;
+      height: auto;
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.65));
+      animation: splashZoom 1.2s ease-out forwards;
+    }
+
+    @keyframes splashZoom {
+      0%   { transform: scale(0.85); opacity: 0; }
+      25%  { opacity: 1; }
+      100% { transform: scale(1);   opacity: 1; }
+    }
+
+    /* Шапка */
 
     .top-bar {
       display: flex;
@@ -161,14 +191,14 @@
 
     .btn-phone {
       background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark));
-      color: #ffffff; /* телефон белым */
+      color: #ffffff;
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.5);
     }
 
     .btn-phone span {
       font-size: 16px;
       color: #ffffff;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); /* тень за номером */
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     }
 
     .btn-telegram {
@@ -195,7 +225,7 @@
       flex-shrink: 0;
     }
 
-    /* СЕКЦІЯ ТОВАРІВ */
+    /* Товар */
 
     .products {
       display: flex;
@@ -243,8 +273,8 @@
       height: auto;
       display: block;
       margin: 0 auto;
-      border-radius: 18px; /* легке «віконце» */
-      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45)); /* маленька тінь */
+      border-radius: 18px;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
       user-select: none;
       pointer-events: none;
       transform: translateX(0);
@@ -316,7 +346,7 @@
       text-decoration: none;
     }
 
-    /* МОДАЛКА */
+    /* Модалка */
 
     .modal-overlay {
       position: fixed;
@@ -344,24 +374,16 @@
       width: calc(100% - 32px);
       max-width: 440px;
       max-height: 82vh;
-      overflow-y: hidden; /* без скролу */
+      overflow-y: hidden;
       position: relative;
     }
 
     .modal-header {
       display: flex;
       align-items: flex-start;
-      justify-content: space-between;
+      justify-content: flex-end;
       gap: 8px;
       margin-bottom: 6px;
-    }
-
-    .modal-title {
-      margin: 0;
-      font-size: 20px;       /* чуть больше */
-      flex: 1;
-      text-align: center;
-      text-transform: uppercase; /* ІКРА СТЕРЛЯДІ великими буквами */
     }
 
     .modal-close {
@@ -387,7 +409,7 @@
 
     .carousel-slides {
       display: flex;
-      transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1); /* плавная анімація */
+      transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
     .carousel-slide {
@@ -404,11 +426,11 @@
       height: auto;
       display: block;
       border-radius: 18px;
-      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45)); /* тінь за замовчуванням */
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45));
       background: transparent;
     }
 
-    /* Для 3 та 4 картинки — без тіні */
+    /* 3-я и 4-я без тіні */
     .carousel-slide:nth-child(3) img,
     .carousel-slide:nth-child(4) img {
       filter: none;
@@ -419,8 +441,8 @@
       top: 50%;
       transform: translateY(-50%);
       border: none;
-      background: transparent;     /* без кружків */
-      color: #ffffff;              /* білі стрілки */
+      background: transparent;
+      color: #ffffff;   /* білі стрілки */
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -535,8 +557,6 @@
       background: linear-gradient(180deg, var(--accent-gold-dark), #7c560b);
     }
 
-    /* Маленькі екрани */
-
     @media (max-width: 360px) {
       .top-bar {
         flex-direction: column;
@@ -555,9 +575,15 @@
 </head>
 
 <body>
+  <!-- Стартове вікно з логотипом -->
+  <div id="logoSplash" class="logo-splash logo-splash--visible">
+    <img src="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png"
+         alt="Логотип ООК">
+  </div>
+
   <div class="page">
 
-    <!-- Шапка з логотипом і кнопками -->
+    <!-- Шапка -->
     <header class="top-bar">
       <div class="logo">
         <img src="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png"
@@ -572,7 +598,6 @@
         </a>
 
         <a class="btn btn-telegram" href="https://t.me/ikra_ook" target="_blank" rel="noopener noreferrer">
-          <!-- Іконка Telegram (SVG) -->
           <svg class="icon-telegram" viewBox="0 0 24 24" aria-hidden="true">
             <path fill="currentColor"
                   d="M9.55 16.85L9.7 13.57L16.85 7.1C17.16 6.83 16.79 6.68 16.38 6.93L7.7 12.42L4.53 11.44C3.84 11.23 3.83 10.75 4.69 10.4L18.92 4.91C19.54 4.63 20.12 5.06 19.88 6.02L17.46 17.45C17.3 18.2 16.86 18.38 16.23 18.05L12.71 15.45L11.02 17.08C10.83 17.27 10.66 17.44 10.28 17.44L9.55 16.85Z" />
@@ -582,10 +607,8 @@
       </div>
     </header>
 
-    <!-- Товари -->
+    <!-- Товар -->
     <section class="products">
-
-      <!-- Єдиний товар -->
       <article class="product-card">
         <div class="product-inner">
           <div class="product-image-wrap">
@@ -602,7 +625,6 @@
           </button>
         </div>
       </article>
-
     </section>
 
     <!-- Підвал -->
@@ -613,10 +635,11 @@
 
   </div>
 
-  <!-- Модальне вікно товару -->
+  <!-- Модальне вікно -->
   <div class="modal-overlay" id="productModal" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" role="dialog" aria-modal="true">
       <div class="modal-header">
+        <!-- Заголовок прибрали, залишили тільки хрестик -->
         <button class="modal-close" type="button" aria-label="Закрити">&times;</button>
       </div>
 
@@ -637,7 +660,6 @@
                    alt="Ікра стерляді, варіант подачі"
                    loading="eager">
             </div>
-            <!-- 3 та 4 поміняні місцями раніше -->
             <div class="carousel-slide">
               <img src="https://i.ibb.co/Wbgz55h/Sterlet-caviar-luxe-eggs.webp"
                    alt="Ікринки стерляді крупним планом"
@@ -696,7 +718,6 @@
     </div>
   </div>
 
-  <!-- Скрипт для додаткового захисту від double-tap zoom на iOS + логіка модалки -->
   <script>
     (function () {
       var lastTouchEnd = 0;
@@ -712,6 +733,17 @@
     document.addEventListener('DOMContentLoaded', function () {
       var body = document.body;
 
+      /* Стартове вікно з логотипом */
+      var splash = document.getElementById('logoSplash');
+      if (splash) {
+        setTimeout(function () {
+          splash.classList.remove('logo-splash--visible');
+          setTimeout(function () {
+            splash.style.display = 'none';
+          }, 700);
+        }, 4000); // 4 секунди
+      }
+
       // Модалка
       var modalOverlay = document.getElementById('productModal');
       var openModalBtn = document.querySelector('.js-open-modal');
@@ -724,7 +756,6 @@
         modalOverlay.classList.add('modal-overlay--visible');
         modalOverlay.setAttribute('aria-hidden', 'false');
 
-        // Повністю блокуємо скрол сайту
         body.style.position = 'fixed';
         body.style.top = -scrollPosition + 'px';
         body.style.left = '0';
@@ -899,7 +930,6 @@
         });
       });
 
-      // Стартові значення
       updateCarousel(0);
       updatePriceAndLink();
     });
