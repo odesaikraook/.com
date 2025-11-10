@@ -39,6 +39,11 @@
   <link rel="apple-touch-icon"
         href="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png">
 
+  <!-- Прелоад логотипа для швидшого завантаження -->
+  <link rel="preload"
+        as="image"
+        href="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png">
+
   <style>
     :root {
       --bg-main: #00485a;      /* темно-бірюзовий фон */
@@ -220,34 +225,19 @@
       z-index: 0;
     }
 
-    /* для нижней, чтобы тень не заезжала на текст */
-    .product-image-wrap--bottom {
-      margin-bottom: 32px;
-    }
-
     .product-image {
-      max-width: 230px;
-      width: 80%;
+      max-width: 260px;
+      width: 85%;
       height: auto;
       display: block;
       margin: 0 auto;
-      border-radius: 50%;
-      filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.55));
+      border-radius: 18px; /* легке «віконце» */
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45)); /* маленька тінь */
       user-select: none;
       pointer-events: none;
-      transform: translateX(8px); /* немного вправо */
+      transform: translateX(0);
       position: relative;
       z-index: 0;
-    }
-
-    /* Нижняя банка — чуть больше по размеру, чем верхняя и смещена немного вправо/вниз */
-    .product-image--blend {
-      border-radius: 50%;
-      mix-blend-mode: normal;
-      opacity: 1;
-      transform: scale(1.25) translate(16px, 6px);
-      transform-origin: center;
-      filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.7));
     }
 
     .product-name {
@@ -255,7 +245,7 @@
       font-weight: 700;
       margin-bottom: 10px;
       position: relative;
-      z-index: 2; /* текст выше тени */
+      z-index: 2; /* текст вище тіні */
     }
 
     .product-note {
@@ -280,6 +270,7 @@
       letter-spacing: 0.08em;
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.55);
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8); /* тень за текстом Замовити */
+      border: none;
     }
 
     .btn-order:hover,
@@ -312,6 +303,218 @@
       text-decoration: none;
     }
 
+    /* МОДАЛКА */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease-out;
+      z-index: 1000;
+    }
+
+    .modal-overlay--visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: linear-gradient(145deg, #00576d, #003f50);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 16px 18px;
+      width: calc(100% - 32px);
+      max-width: 440px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 18px;
+      flex: 1;
+      text-align: center; /* по центру */
+    }
+
+    .modal-close {
+      border: none;
+      background: transparent;
+      color: var(--text-main);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+
+    .modal-carousel {
+      position: relative;
+      margin: 4px 0 10px;
+    }
+
+    .carousel-track {
+      overflow: hidden;
+      border-radius: 18px;
+    }
+
+    .carousel-slides {
+      display: flex;
+      transition: transform 0.25s ease-out;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 0 4px;
+    }
+
+    .carousel-slide img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 18px;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.45)); /* невелика тінь */
+      background: transparent; /* без фону */
+    }
+
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: rgba(0, 0, 0, 0.35);
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      backdrop-filter: blur(4px);
+    }
+
+    .carousel-arrow--left {
+      left: 6px;
+    }
+
+    .carousel-arrow--right {
+      right: 6px;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .carousel-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .carousel-dot--active {
+      background: var(--accent-gold);
+    }
+
+    .modal-description {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin: 10px 0 14px;
+      text-align: center; /* по центру */
+    }
+
+    .weight-selector {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .weight-option {
+      border-radius: 999px;
+      border: 1px solid rgba(226, 193, 90, 0.6);
+      background: transparent;
+      color: var(--text-main);
+      padding: 6px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .weight-option--active {
+      background: linear-gradient(135deg, var(--accent-gold-light), var(--accent-gold-dark));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    .modal-price {
+      text-align: center;
+      font-size: 15px;
+      margin-bottom: 14px;
+    }
+
+    .modal-price span:last-child {
+      font-size: 17px;
+    }
+
+    .modal-order-btn {
+      width: 100%;
+      margin-top: 0;
+    }
+
+    /* Скролбар у стилі сайту */
+    body,
+    .modal {
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent-gold) #003746;
+    }
+
+    body::-webkit-scrollbar,
+    .modal::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    body::-webkit-scrollbar-track,
+    .modal::-webkit-scrollbar-track {
+      background: #003746;
+    }
+
+    body::-webkit-scrollbar-thumb,
+    .modal::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--accent-gold-light), var(--accent-gold-dark));
+      border-radius: 4px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover,
+    .modal::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, var(--accent-gold-dark), #7c560b);
+    }
+
     /* Маленькі екрани */
 
     @media (max-width: 360px) {
@@ -338,7 +541,8 @@
     <header class="top-bar">
       <div class="logo">
         <img src="https://i.ibb.co/8DrFtqdx/05c0b273-fd72-4d60-8062-bf55e67dff27.png"
-             alt="Логотип ООК">
+             alt="Логотип ООК"
+             loading="eager">
       </div>
 
       <div class="top-actions">
@@ -360,51 +564,19 @@
     <!-- Товари -->
     <section class="products">
 
-      <!-- Товар 1 -->
+      <!-- Єдиний товар -->
       <article class="product-card">
         <div class="product-inner">
           <div class="product-image-wrap">
             <img class="product-image"
-                 src="https://odessasturgeon.com/wp-content/uploads/2019/11/albinos.png"
-                 alt="Золота ікра Стерляді-альбіноса">
+                 src="https://i.ibb.co/PZ6Nd6H6/Sterlet-caviar-1.png"
+                 alt="Ікра стерляді">
           </div>
-          <div class="product-name">Золота ікра Стерляді-альбіноса</div>
-          <div class="product-note">Рідкісний делікатес з м’яким маслянистим смаком.</div>
-          <a class="btn btn-order" href="https://t.me/ikra_ook" target="_blank" rel="noopener noreferrer">
+          <div class="product-name">Ікра стерляді</div>
+          <div class="product-note">Делікатес із ніжним, вишуканим смаком та м’якою текстурою.</div>
+          <button class="btn btn-order js-open-modal" type="button">
             Замовити
-          </a>
-        </div>
-      </article>
-
-      <!-- Товар 2 -->
-      <article class="product-card">
-        <div class="product-inner">
-          <div class="product-image-wrap">
-            <img class="product-image"
-                 src="https://odessasturgeon.com/wp-content/uploads/2019/11/2-layers-min-3-1.png"
-                 alt="Чорна ікра Білуги">
-          </div>
-          <div class="product-name">Чорна ікра Білуги</div>
-          <div class="product-note">Класична чорна ікра з насиченим смаком.</div>
-          <a class="btn btn-order" href="https://t.me/ikra_ook" target="_blank" rel="noopener noreferrer">
-            Замовити
-          </a>
-        </div>
-      </article>
-
-      <!-- Товар 3 -->
-      <article class="product-card">
-        <div class="product-inner">
-          <div class="product-image-wrap product-image-wrap--bottom">
-            <img class="product-image product-image--blend"
-                 src="https://i.ibb.co/7d7G7msj/490ab98c-3543-4d55-a5e8-d984d5935b0f.png"
-                 alt="Чорна ікра Стерляді">
-          </div>
-          <div class="product-name">Чорна ікра Стерляді</div>
-          <div class="product-note">Вишуканий баланс ніжності та солоності.</div>
-          <a class="btn btn-order" href="https://t.me/ikra_ook" target="_blank" rel="noopener noreferrer">
-            Замовити
-          </a>
+          </button>
         </div>
       </article>
 
@@ -418,7 +590,86 @@
 
   </div>
 
-  <!-- Скрипт для додаткового захисту від double-tap zoom на iOS -->
+  <!-- Модальне вікно товару -->
+  <div class="modal-overlay" id="productModal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Ікра стерляді</h2>
+        <button class="modal-close" type="button" aria-label="Закрити">&times;</button>
+      </div>
+
+      <div class="modal-carousel">
+        <button class="carousel-arrow carousel-arrow--left" type="button" aria-label="Попереднє фото">
+          &#10094;
+        </button>
+
+        <div class="carousel-track">
+          <div class="carousel-slides" id="carouselSlides">
+            <div class="carousel-slide">
+              <img src="https://i.ibb.co/PZ6Nd6H6/Sterlet-caviar-1.png"
+                   alt="Ікра стерляді у банці">
+            </div>
+            <div class="carousel-slide">
+              <img src="https://i.ibb.co/dJ1hVS7C/Sterlet-Caviar-Luxe-1.png"
+                   alt="Ікра стерляді, варіант подачі">
+            </div>
+            <div class="carousel-slide">
+              <img src="https://i.ibb.co/Gf9R9zP6/Sterlet.webp"
+                   alt="Банка ікри стерляді без фону">
+            </div>
+            <div class="carousel-slide">
+              <img src="https://i.ibb.co/Wbgz55h/Sterlet-caviar-luxe-eggs.webp"
+                   alt="Ікринки стерляді крупним планом">
+            </div>
+          </div>
+        </div>
+
+        <button class="carousel-arrow carousel-arrow--right" type="button" aria-label="Наступне фото">
+          &#10095;
+        </button>
+
+        <div class="carousel-dots" id="carouselDots">
+          <button class="carousel-dot carousel-dot--active" type="button" data-index="0"></button>
+          <button class="carousel-dot" type="button" data-index="1"></button>
+          <button class="carousel-dot" type="button" data-index="2"></button>
+          <button class="carousel-dot" type="button" data-index="3"></button>
+        </div>
+      </div>
+
+      <p class="modal-description">
+        Преміальна ікра стерляді з тонким, делікатним смаком і м’якою маслянистою текстурою.
+        Кожна ікринка розкривається легким горіховим відтінком і чистим післясмаком моря —
+        ідеальний вибір для святкового столу та подарункових наборів.
+      </p>
+
+      <div class="weight-selector" id="weightSelector">
+        <button class="weight-option weight-option--active" type="button" data-weight="50" data-price="1400">
+          50 г
+        </button>
+        <button class="weight-option" type="button" data-weight="125" data-price="3000">
+          125 г
+        </button>
+        <button class="weight-option" type="button" data-weight="500" data-price="15000">
+          500 г
+        </button>
+      </div>
+
+      <div class="modal-price">
+        <span>Ціна:&nbsp;</span>
+        <span id="modalPriceValue">1 400 ₴</span>
+      </div>
+
+      <a class="btn btn-order modal-order-btn"
+         id="modalOrderBtn"
+         href="https://t.me/ikra_ook"
+         target="_blank"
+         rel="noopener noreferrer">
+        Оформити замовлення
+      </a>
+    </div>
+  </div>
+
+  <!-- Скрипт для додаткового захисту від double-tap zoom на iOS + логіка модалки -->
   <script>
     (function () {
       var lastTouchEnd = 0;
@@ -430,6 +681,133 @@
         lastTouchEnd = now;
       }, { passive: false });
     })();
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var body = document.body;
+
+      // Модалка
+      var modalOverlay = document.getElementById('productModal');
+      var openModalBtn = document.querySelector('.js-open-modal');
+      var closeModalBtn = modalOverlay.querySelector('.modal-close');
+
+      function openModal() {
+        modalOverlay.classList.add('modal-overlay--visible');
+        modalOverlay.setAttribute('aria-hidden', 'false');
+        body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modalOverlay.classList.remove('modal-overlay--visible');
+        modalOverlay.setAttribute('aria-hidden', 'true');
+        body.style.overflow = '';
+      }
+
+      openModalBtn.addEventListener('click', openModal);
+      closeModalBtn.addEventListener('click', closeModal);
+
+      modalOverlay.addEventListener('click', function (e) {
+        if (e.target === modalOverlay) {
+          closeModal();
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('modal-overlay--visible')) {
+          closeModal();
+        }
+      });
+
+      // Карусель
+      var slidesContainer = document.getElementById('carouselSlides');
+      var slides = Array.prototype.slice.call(slidesContainer.querySelectorAll('.carousel-slide'));
+      var dotsContainer = document.getElementById('carouselDots');
+      var dots = Array.prototype.slice.call(dotsContainer.querySelectorAll('.carousel-dot'));
+      var prevArrow = document.querySelector('.carousel-arrow--left');
+      var nextArrow = document.querySelector('.carousel-arrow--right');
+
+      var currentIndex = 0;
+      var totalSlides = slides.length;
+
+      function updateCarousel(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        currentIndex = index;
+
+        var offset = -currentIndex * 100;
+        slidesContainer.style.transform = 'translateX(' + offset + '%)';
+
+        dots.forEach(function (dot, i) {
+          if (i === currentIndex) {
+            dot.classList.add('carousel-dot--active');
+          } else {
+            dot.classList.remove('carousel-dot--active');
+          }
+        });
+      }
+
+      prevArrow.addEventListener('click', function () {
+        updateCarousel(currentIndex - 1);
+      });
+
+      nextArrow.addEventListener('click', function () {
+        updateCarousel(currentIndex + 1);
+      });
+
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function () {
+          var index = parseInt(dot.getAttribute('data-index'), 10);
+          updateCarousel(index);
+        });
+      });
+
+      // Вибір грамівки і ціна
+      var weightButtons = Array.prototype.slice.call(document.querySelectorAll('.weight-option'));
+      var priceValue = document.getElementById('modalPriceValue');
+      var orderBtn = document.getElementById('modalOrderBtn');
+      var telegramBase = 'https://t.me/ikra_ook';
+
+      var prices = {
+        50: 1400,
+        125: 3000,
+        500: 15000
+      };
+
+      var selectedWeight = 50;
+
+      function formatPrice(value) {
+        try {
+          return value.toLocaleString('uk-UA') + ' ₴';
+        } catch (e) {
+          return value + ' ₴';
+        }
+      }
+
+      function updatePriceAndLink() {
+        var price = prices[selectedWeight] || 0;
+        priceValue.textContent = formatPrice(price);
+
+        var message = 'Хочу замовити ікру стерляді ' +
+          selectedWeight + ' г (' + price + ' грн).';
+        var encoded = encodeURIComponent(message);
+        orderBtn.href = telegramBase + '?text=' + encoded;
+      }
+
+      weightButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          weightButtons.forEach(function (b) {
+            b.classList.remove('weight-option--active');
+          });
+          btn.classList.add('weight-option--active');
+
+          selectedWeight = parseInt(btn.getAttribute('data-weight'), 10);
+          updatePriceAndLink();
+        });
+      });
+
+      // Стартові значення
+      updateCarousel(0);
+      updatePriceAndLink();
+    });
   </script>
 </body>
 </html>
